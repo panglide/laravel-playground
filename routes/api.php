@@ -18,4 +18,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/get-teachers', 'SchoolController@getTeachers');
+Route::get('/teachers', 'TeacherController@index');
+Route::get('/teacher/{id}', 'TeacherController@show');

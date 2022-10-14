@@ -1,11 +1,12 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/inertia-vue3';
 import { ref, onMounted, reactive, computed } from 'vue';
 let teachers = ref([]);
     onMounted(() => {
         let vm = this;
-        axios.get('/api/get-teachers', {
+        axios.get('/api/teachers', {
             params: {
                 school_id: 16
             }
@@ -37,8 +38,8 @@ let teachers = ref([]);
                             v-for="teacher in teachers"
                             :key="teacher.id"
                         >
-                            {{ teacher.fname }} {{ teacher.lname }}
-                        </div>
+                            <a :href="`/teacher-profile/${teacher.id}`">{{ teacher.fname }} {{ teacher.lname }}</a>
+                    </div>
                     </div>
                 </div>
             </div>

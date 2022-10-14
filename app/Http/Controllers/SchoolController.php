@@ -83,14 +83,4 @@ class SchoolController extends Controller
     {
         //
     }
-
-    public function getTeachers(Request $request)
-    {
-        $teachers = Profile::select('fname', 'lname')
-            ->leftjoin('teachers', 'teachers.id', 'teacher_id')
-            ->where('school_id', $request->school_id)
-            ->get();
-
-        return response(['teachers' => $teachers], 200);
-    }
 }
