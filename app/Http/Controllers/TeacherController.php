@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use App\Models\Profile;
 
 class TeacherController extends Controller
 {
@@ -12,9 +13,14 @@ class TeacherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $teachers = Profile::select('t.id', 'fname', 'lname')
+            ->leftjoin('teachers as t', 't.id', 'teacher_id')
+            ->where('school_id', $request->school_id)
+            ->get();
+
+        return response(['teachers' => $teachers], 200);
     }
 
     /**

@@ -15,14 +15,6 @@ class Teacher extends Model
         'email',
     ];
 
-    public function district() {
-        return $this->hasOne(District::class);
-    }
-
-    public function school() {
-        return $this->hasOne(School::class);
-    }
-
     public function profile() {
         return $this->hasOne(Profile::class);
     }
