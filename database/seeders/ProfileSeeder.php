@@ -4,10 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Teacher;
 use App\Models\Profile;
 
-class TeacherSeeder extends Seeder
+class ProfileSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +15,6 @@ class TeacherSeeder extends Seeder
      */
     public function run()
     {
-        Teacher::factory(10)->create();
+        Profile::factory()->create();
     }
 }
