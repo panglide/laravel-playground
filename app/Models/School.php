@@ -13,6 +13,6 @@ class School extends Model
 
     public function district() 
     {
-        return $this->hasMany(District::class);
+        return $this->belongsTo(District::class, 'nces_district_id', 'nces_district_id');
     }
 }

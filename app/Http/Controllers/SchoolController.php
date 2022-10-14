@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\School;
 use Illuminate\Http\Request;
+use App\Models\Profile;
 
 class SchoolController extends Controller
 {
@@ -81,5 +82,15 @@ class SchoolController extends Controller
     public function destroy(School $school)
     {
         //
+    }
+
+    public function getTeachers(Request $request)
+    {
+        $teachers = Profile::select('fname', 'lname')
+            ->leftjoin('teachers', 'teachers.id', 'teacher_id')
+            ->where('school_id', $request->school_id)
+            ->get();
+
+        return response(['teachers' => $teachers], 200);
     }
 }
