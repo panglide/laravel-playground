@@ -38,7 +38,7 @@ let teachers = ref([]);
                             v-for="teacher in teachers"
                             :key="teacher.id"
                         >
-                            <a :href="`/teacher-profile/${teacher.id}`">{{ teacher.fname }} {{ teacher.lname }}</a>
+                            <Link :href="route('teacher-profile', {id: teacher.id})">{{ teacher.fname }} {{ teacher.lname }}</Link>
                     </div>
                     </div>
                 </div>

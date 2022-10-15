@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/teachers', 'TeacherController@index');
-Route::get('/teacher/{id}', 'TeacherController@show');
+Route::get('/get-teacher', 'TeacherController@show');

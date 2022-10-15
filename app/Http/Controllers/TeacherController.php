@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use App\Models\Profile;
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -50,9 +51,29 @@ class TeacherController extends Controller
      * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function show(Teacher $teacher)
+    public function show(Request $request)
     {
-        //
+       $teacher = DB::table('teachers as t')
+        ->select(
+        'd.district_name as district',
+        's.school_name as school', 
+        'p.grade_id as grade',
+        'subject_id as subject',
+        't.fname as tfn',
+        't.lname as tln',
+        't.email as tem',
+        'c.fname as cfn',
+        'c.lname as cln',
+        'c.email as cem'
+        )
+        ->leftJoin('profiles as p', 'p.teacher_id', 't.id')
+        ->leftJoin('schools as s', 's.id', 'p.school_id')
+        ->leftJoin('districts as d', 'd.nces_district_id', 's.nces_district_id')
+        ->leftJoin('coaches as c', 'c.id', 'p.coach_id')
+        ->where('t.id', $request->id)
+        ->first();
+
+        return $teacher;
     }
 
     /**
