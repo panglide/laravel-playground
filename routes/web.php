@@ -27,7 +27,9 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard', [
+        'user_id' => auth()->user()->id
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::get('/teacher-profile/{teacher}', function (Teacher $teacher, Profile $profile) {
