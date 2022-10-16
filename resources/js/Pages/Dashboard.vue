@@ -47,49 +47,78 @@ onMounted(dataInit)
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
+                <!-- TODO: use once Role model is built -->
+               <!-- {{ user.role.name }} Dashboard -->
+               Coaches Dashboard
             </h2>
         </template>
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="bg-gray-400 w-12/12">
+                            <div class="
+                                    min-w-full 
+                                    rounded-lg 
+                                    flex
+                                    justify-end
+                                    content-center"
+                                >
+                                <div 
+                                    class="m-6 font-semibold text-xl text-gray-800"
+                                    @click="openSearch"
+                                >
+                                    <font-awesome-icon 
+                                        icon="fa-solid fa-filter"
+                                        v-if="!search.status"
+                                    ></font-awesome-icon>
+                                </div>
+                                <div 
+                                    class="m-6 font-semibold text-xl text-gray-800"
+                                    @click="closeSearch"
+                                    v-if="search.status"
+                                >
+                                    <font-awesome-icon icon="fa-solid fa-times"></font-awesome-icon>
+                                </div>
+                                <div 
+                                    class="m-2"
+                                    v-show="search.status"
+                                >
+                                    <form 
+                                        @submit.prevent="loadData"
+                                        class="flex pt-2"
+                                    >
+                                        <input type="text" name="term" id="search" v-model.lazy.trim="term">
+                                        <button 
+                                            type="button" 
+                                            class="bg-blue-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg mx-2"
+                                            @click="loadData(); closeSearch();"
+                                        >
+                                            Search
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <div 
-                            class="m-6 font-semibold text-xl text-gray-800"
-                            @click="openSearch"
-                        >
-                            <font-awesome-icon icon="fa-solid fa-filter"></font-awesome-icon>
-                        </div>
-                        <div 
-                            class="m-2"
-                            v-show="search.status"
-                        >
-                            <input type="text" name="term" id="search" v-model.lazy.trim="term">
-                            <button 
-                                type="button" 
-                                class="bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg"
-                                @click="loadData(); closeSearch();"
-                            >
-                                Search
-                            </button>
-                        </div>
+                        
                         <div
                             v-for="teacher in teachers"
                             :key="teacher.id"
                         >
                             <Link :href="route('teacher-profile', {id: teacher.id})">
-                                <div class="max-w-sm w-10/12 lg:max-w-full lg:flex m-3">
+                                <div class="my-4 max-w-sm w-10/12 lg:max-w-full lg:flex">
                                     <div 
                                         class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" 
                                         :style="{ backgroundImage: 'url(' + teacher.avatar + ')'}" title="teacher.fname + ' ' + teacher.lname avatar"
                                     >
                                     </div>
                                     <div 
-                                        class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
+                                        class="bg-gray-100 min-w-full border-r border-b border-l border-gray-200 lg:border-l-0 lg:border-t lg:border-gray-200 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
                                     >
                                     <div class="mb-8">
-                                        <div class="text-gray-900 font-bold text-xl mb-2">{{ teacher.fname }} {{ teacher.lname }}</div>
-                                        <p class="text-gray-700 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
+                                        <div class="text-gray-900 font-bold text-2xl mb-2">{{ teacher.fname }} {{ teacher.lname }}</div>
+                                        <div class="text-lg  font-semibold">PD Notes:</div>
+                                        <p class="text-gray-700 text-base">{{ teacher.pd_notes }}</p>
                                     </div>
                                         <div class="flex items-center">
                                             <div class="text-sm">
