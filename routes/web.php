@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\Teacher;
+use App\Models\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,23 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard', [
+        'user_id' => auth()->user()->id
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Route::get('/teacher-profile/{teacher}', function (Teacher $teacher, Profile $profile) {
+//     return Inertia::render('TeacherProfile', [
+//         'teacher' => $teacher,
+//         'profile' => $profile
+//     ]);
+// })->name('teacher-profile');
+Route::get('/teacher-profile/{teacher}', function (Teacher $teacher) {
+    return Inertia::render('TeacherProfile', [
+        'teacher_id' => $teacher->id
+    ]);
+})->middleware(['auth', 'verified'])->name('teacher-profile');
+
+
+// Route::get('/teacher-profile', 'TeacherController@show');
 require __DIR__.'/auth.php';

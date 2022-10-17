@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('nces_school_id')->unique();
             $table->string('state_school_id')->unique();
-            $table->unsignedInteger('nces_district_id')->unique();
-            $table->string('state_district_id')->unique();
+            $table->unsignedInteger('nces_district_id');
+            $table->string('state_district_id');
             $table->string('school_name');
             $table->string('district_name');
             $table->string('street_address');

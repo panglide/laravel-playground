@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
+            $table->unsignedTinyInteger('teacher_id');
             $table->unsignedTinyInteger('grade_id');
             $table->unsignedTinyInteger('subject_id');
             $table->unsignedInteger('school_id');
