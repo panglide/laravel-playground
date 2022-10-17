@@ -30,7 +30,7 @@ class TeacherController extends Controller
                     ->orWhere('t.lname', 'LIKE', '%'. $term .'%');
             });
         }
-        $query->select('t.id', 't.fname', 't.lname', 't.email', 'p.headshot_url as avatar', 'p.pd_notes as pd_notes');
+        $query->select('t.id', 't.fname', 't.lname', 't.email', 'p.headshot_url as avatar', 'p.pd_notes as pd_notes', 'p.last_touch as last_touch');
         $query->orderBy('t.lname', 'ASC');
         $teachers = $query->get();
 

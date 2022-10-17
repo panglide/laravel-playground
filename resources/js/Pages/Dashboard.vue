@@ -14,12 +14,21 @@ const dataInit = async () => {
 }
 
 function openSearch() {
-    search.status = true;
-    term.value = '';   
+    search.status = true;   
 }
-
+function clearSearch() {
+    term.value = '';
+    loadData();  
+}
 function closeSearch() {
-    search.status = false;  
+    setTimeout(() => {
+        if(term.value) {
+            return;
+        }
+        search.status = false;
+        term.value = '';
+    }, 1000);
+        
 }
 
 function loadData() {
@@ -55,75 +64,91 @@ onMounted(dataInit)
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="bg-gray-400 w-12/12">
-                            <div class="
-                                    min-w-full 
-                                    rounded-lg 
-                                    flex
-                                    justify-end
-                                    content-center"
+                    <div class="bg-gray-200 w-12/12">
+                        <div class="
+                                min-w-full 
+                                rounded-lg 
+                                flex
+                                justify-end
+                                content-center"
+                                @mouseover="openSearch"
+                                @mouseleave.prevent="closeSearch"
+                            >
+                            <div 
+                                class="m-6 font-semibold text-xl text-gray-800"   
+                            >
+                                <font-awesome-icon 
+                                    icon="fa-solid fa-filter"
+                                    v-if="!search.status" 
+                                    class="text-4xl" 
+                                ></font-awesome-icon>
+                            </div>
+                            <div 
+                                class="m-3 p-3"
+                                v-show="search.status"
+                            >
+                                <form 
+                                    @submit.prevent="loadData"
+                                    class="flex"
                                 >
-                                <div 
-                                    class="m-6 font-semibold text-xl text-gray-800"
-                                    @click="openSearch"
-                                >
-                                    <font-awesome-icon 
-                                        icon="fa-solid fa-filter"
-                                        v-if="!search.status"
-                                    ></font-awesome-icon>
-                                </div>
-                                <div 
-                                    class="m-6 font-semibold text-xl text-gray-800"
-                                    @click="closeSearch"
-                                    v-if="search.status"
-                                >
-                                    <font-awesome-icon icon="fa-solid fa-times"></font-awesome-icon>
-                                </div>
-                                <div 
-                                    class="m-2"
-                                    v-show="search.status"
-                                >
-                                    <form 
-                                        @submit.prevent="loadData"
-                                        class="flex pt-2"
-                                    >
-                                        <input type="text" name="term" id="search" v-model.lazy.trim="term">
-                                        <button 
-                                            type="button" 
-                                            class="bg-blue-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg mx-2"
-                                            @click="loadData(); closeSearch();"
+                                    <div class="custom-input-group">
+                                        <span
+                                            class="bg-gray-200 custom-input-group-icon"
+                                            @click="clearSearch"
                                         >
-                                            Search
-                                        </button>
-                                    </form>
-                                </div>
+                                            <svg 
+                                                class="border-t border-b border-l border-black rounded-l-lg"
+                                                width=50
+                                                height=42
+                                                viewBox="-5 -6 25 25"
+                                                version="1.1"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <line x1="1" y1="11" 
+                                                    x2="11" y2="1" 
+                                                    stroke="black" 
+                                                    stroke-width="2"></line>
+                                                <line x1="1" y1="1" 
+                                                    x2="11" y2="11" 
+                                                    stroke="black" 
+                                                    stroke-width="2"></line>
+                                            </svg>
+                                        </span>
+                                        <input 
+                                            type="text" 
+                                            name="term" 
+                                            id="search" 
+                                            v-model="term"
+                                            class="rounded-lg custom-input-group-text"
+                                        >
+                                    </div>
+                                    <button 
+                                        type="button" 
+                                        class="bg-blue-300 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg mx-2"
+                                        @click="loadData(); closeSearch();"
+                                    >
+                                        Search
+                                    </button>
+                                </form>
                             </div>
                         </div>
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        
+                    </div>
+                    <div class="p-6 bg-white border-b border-gray-200 sm:flex-none">
                         <div
                             v-for="teacher in teachers"
                             :key="teacher.id"
                         >
-                            <Link :href="route('teacher-profile', {id: teacher.id})">
-                                <div class="my-4 max-w-sm w-10/12 lg:max-w-full lg:flex">
-                                    <div 
-                                        class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" 
-                                        :style="{ backgroundImage: 'url(' + teacher.avatar + ')'}" title="teacher.fname + ' ' + teacher.lname avatar"
-                                    >
-                                    </div>
-                                    <div 
-                                        class="bg-gray-100 min-w-full border-r border-b border-l border-gray-200 lg:border-l-0 lg:border-t lg:border-gray-200 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
-                                    >
-                                    <div class="mb-8">
-                                        <div class="text-gray-900 font-bold text-2xl mb-2">{{ teacher.fname }} {{ teacher.lname }}</div>
+                            <Link 
+                                :href="route('teacher-profile', {id: teacher.id})"
+                            >
+                                <div class="flex justify-center">
+                                    <div class="flex flex-col md:flex-row md:max-w-xl min-w-full h-56 rounded-lg bg-white shadow-lg mb-8 sm:w-0">
+                                        <img class="w-full md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg" :src="teacher.avatar" :alt="teacher.fname + ' ' + teacher.lname +' avatar'" />
+                                        <div class="p-6 flex flex-col justify-start">
+                                        <h2 class="text-gray-900 text-3xl font-medium mb-2">{{ teacher.fname }} {{ teacher.lname }}</h2>
                                         <div class="text-lg  font-semibold">PD Notes:</div>
-                                        <p class="text-gray-700 text-base">{{ teacher.pd_notes }}</p>
-                                    </div>
-                                        <div class="flex items-center">
-                                            <div class="text-sm">
-                                                <p class="text-gray-600">Last Visit: </p>
-                                            </div>
+                                            <p class="text-gray-700 text-base mb-4">{{ teacher.pd_notes }}</p>
+                                            <p class="text-gray-600 text-xs">Last Visit: {{ teacher.last_touch }}</p>
                                         </div>
                                     </div>
                                 </div>
