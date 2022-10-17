@@ -17,7 +17,11 @@ class CoachFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'fname' => fake()->firstName(),
+            'lname' => fake()->lastName(),
+            'email' => fake()->unique()->safeEmail(),
+            'created_at' => now(),
+            'updated_at' => now()
         ];
     }
 }
