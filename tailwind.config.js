@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,6 +9,25 @@ module.exports = {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
     ],
+    plugins: [
+        require('@tailwindcss/forms'),
+        plugin(function({ addComponents }) {
+            addComponents({
+                '.custom-input-group': {
+                    position: 'relative',
+                    display: 'inline-block'
+                },
+                '.custom-input-group-icon': {
+                    position: 'absolute',
+                    left: '0',
+                    top: '0'
+                },
+                'input[type="text"].custom-input-group-text': {
+                    paddingLeft: '4rem'
+                }
+            })
+        })
+    ],
 
     theme: {
         extend: {
@@ -16,6 +36,4 @@ module.exports = {
             },
         },
     },
-
-    plugins: [require('@tailwindcss/forms')],
 };

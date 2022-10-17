@@ -16,10 +16,23 @@ class TeacherController extends Controller
      */
     public function index(Request $request)
     {
-        $teachers = Profile::select('t.id', 'fname', 'lname')
-            ->leftjoin('teachers as t', 't.id', 'teacher_id')
-            ->where('school_id', $request->school_id)
-            ->get();
+        $term = $request->search_terms;
+        
+        $query = DB::table('profiles as p')
+                        ->join('teachers as t', 't.id', 'p.teacher_id')
+                        ->where('p.coach_id', $request->user_id);
+
+        if($term) {
+            $query->where(function ($q) use ($term) {
+                  $q->orWhere('grade_id', $term)
+                    ->orWhere('subject_id', $term)
+                    ->orWhere('t.fname', 'LIKE', '%'. $term .'%')
+                    ->orWhere('t.lname', 'LIKE', '%'. $term .'%');
+            });
+        }
+        $query->select('t.id', 't.fname', 't.lname', 't.email', 'p.headshot_url as avatar', 'p.pd_notes as pd_notes', 'p.last_touch as last_touch');
+        $query->orderBy('t.lname', 'ASC');
+        $teachers = $query->get();
 
         return response(['teachers' => $teachers], 200);
     }
@@ -64,7 +77,8 @@ class TeacherController extends Controller
         't.email as tem',
         'c.fname as cfn',
         'c.lname as cln',
-        'c.email as cem'
+        'c.email as cem',
+        'p.headshot_url as avatar'
         )
         ->leftJoin('profiles as p', 'p.teacher_id', 't.id')
         ->leftJoin('schools as s', 's.id', 'p.school_id')
