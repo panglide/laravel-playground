@@ -23,9 +23,13 @@ class ProfileFactory extends Factory
         $teachers = Teacher::all();
 
         return [
-            'grade_id' => fake()->numberBetween(0, 12),
-            'subject_id' => fake()->numberBetween(0, 30),
+            'grade_id' => fake()->numberBetween(0, 5),
+            'subject_id' => fake()->numberBetween(1, 6),
             'school_id' => $school_id,
+            'coach_id' => fake()->unique()->numberBetween(1, 4),
+            'avatar_url' => fake()->image('public/storage/images', 300, 300, null, false),
+            'pd_notes' => fake()->sentences(3),
+            'last_touch' => Carbon::createFromTimeStamp(fake()->dateTimeThisYear('-2 months')->getTimestamp()),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'teacher_id' => fake()->unique()->numberBetween(1, $teachers->count())

@@ -19,6 +19,9 @@ return new class extends Migration
             $table->unsignedTinyInteger('grade_id');
             $table->unsignedTinyInteger('subject_id');
             $table->unsignedInteger('school_id');
+            $table->unsignedInteger('coach_id');
+            $table->string('avatar_url');
+            $table->date('last_touch');
             $table->timestamps();
         });
     }
