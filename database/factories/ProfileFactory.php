@@ -27,9 +27,9 @@ class ProfileFactory extends Factory
             'subject_id' => fake()->numberBetween(1, 6),
             'school_id' => $school_id,
             'coach_id' => fake()->unique()->numberBetween(1, 4),
-            'avatar_url' => fake()->image('public/storage/images', 300, 300, null, false),
-            'pd_notes' => fake()->sentences(3),
-            'last_touch' => Carbon::createFromTimeStamp(fake()->dateTimeThisYear('-2 months')->getTimestamp()),
+            'avatar_url' => fake()->image(public_path('images'), 300, 300, null, false),
+            'pd_notes' => fake()->sentences('3', true),
+            'last_touch' => fake()->dateTimeBetween(Carbon::now()->subMonths('4'), Carbon::now()),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'teacher_id' => fake()->unique()->numberBetween(1, $teachers->count())
