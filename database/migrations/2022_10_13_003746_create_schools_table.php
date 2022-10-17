@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('nces_school_id')->unique();
+            $table->unsignedBigInteger('nces_school_id')->unique();
             $table->string('state_school_id')->unique();
-            $table->unsignedInteger('nces_district_id');
+            $table->unsignedBigInteger('nces_district_id');
             $table->string('state_district_id');
             $table->string('school_name');
             $table->string('district_name');
@@ -26,9 +26,9 @@ return new class extends Migration
             $table->string('state');
             $table->unsignedInteger('zip');
             $table->boolean('title_1_school');
-            $table->unsignedInteger('teacher_count');
-            $table->unsignedInteger('student_count');
-            $table->float('teacher_student_ratio', 3, 3);
+            $table->unsignedInteger('teacher_count')->nullable();
+            $table->unsignedInteger('student_count')->nullable();
+            $table->float('teacher_student_ratio')->nullable();
             $table->timestamps();
         });
     }
