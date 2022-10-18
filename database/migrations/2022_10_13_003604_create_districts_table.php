@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedInteger('zip');
             $table->unsignedInteger('teacher_count')->nullable();
             $table->unsignedInteger('student_count')->nullable();
-            $table->float('student_teacher_ratio')->nullable();
+            $table->decimal('student_teacher_ratio', $precision = 3, $scale = 3)->nullable();
             $table->timestamps();
         });
     }

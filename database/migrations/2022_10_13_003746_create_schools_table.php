@@ -28,7 +28,7 @@ return new class extends Migration
             $table->boolean('title_1_school');
             $table->unsignedInteger('teacher_count')->nullable();
             $table->unsignedInteger('student_count')->nullable();
-            $table->float('teacher_student_ratio')->nullable();
+            $table->decimal('teacher_student_ratio', $precision = 3, $scale = 3)->nullable();
             $table->timestamps();
         });
     }
