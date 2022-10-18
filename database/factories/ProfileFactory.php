@@ -19,20 +19,19 @@ class ProfileFactory extends Factory
      */
     public function definition()
     {
-        $school_id = School::where('nces_school_id', 470318001254)->select('id')->first();
+        
         $teachers = Teacher::all();
 
         return [
             'grade_id' => fake()->numberBetween(0, 5),
             'subject_id' => fake()->numberBetween(1, 6),
-            'school_id' => $school_id,
-            'coach_id' => fake()->unique()->numberBetween(1, 4),
+            'school_id' => 16,
+            'coach_id' => fake()->numberBetween(1, 4),
             'avatar_url' => fake()->image(public_path('images'), 300, 300, null, false),
             'pd_notes' => fake()->sentences('3', true),
             'last_touch' => fake()->dateTimeBetween(Carbon::now()->subMonths('4'), Carbon::now()),
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'teacher_id' => fake()->unique()->numberBetween(1, $teachers->count())
+            'updated_at' => Carbon::now()
         ];
     }
 }

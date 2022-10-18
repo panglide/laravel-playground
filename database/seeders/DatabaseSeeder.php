@@ -18,8 +18,7 @@ class DatabaseSeeder extends Seeder
        
         $this->call([
             TeacherSeeder::class,
-            CoachSeeder::class,
-            ProfileSeeder::class
+            CoachSeeder::class
         ]);
 
         // \App\Models\User::factory(10)->create();
