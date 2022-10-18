@@ -37,7 +37,6 @@ onMounted(() => {
                             <div>{{ teacher.cfn}} {{ teacher.cln }}</div>
                             <div>{{ teacher.grade }}</div>
                             <div>{{ teacher.subject }}</div>
-                            <div>{{ teacher.avatar}}</div>
                         </div>
                     </div>
                 </div>

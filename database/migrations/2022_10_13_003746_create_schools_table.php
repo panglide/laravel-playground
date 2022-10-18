@@ -25,10 +25,10 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->unsignedInteger('zip');
-            $table->boolean('title_1_school');
+            $table->boolean('title_1_school')->nullable();
             $table->unsignedInteger('teacher_count')->nullable();
             $table->unsignedInteger('student_count')->nullable();
-            $table->decimal('teacher_student_ratio', $precision = 3, $scale = 3)->nullable();
+            $table->decimal('teacher_student_ratio', $precision = 10, $scale = 5)->nullable();
             $table->timestamps();
         });
     }
