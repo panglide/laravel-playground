@@ -66,19 +66,19 @@ class TeacherController extends Controller
      */
     public function show(Request $request)
     {
-       $teacher = DB::table('teachers as t')
-        ->select(
+       $teacher = Teacher::from('teachers as t')
+       ->select(
         'd.district_name as district',
         's.school_name as school', 
         'p.grade_id as grade',
         'subject_id as subject',
-        't.fname as tfn',
-        't.lname as tln',
-        't.email as tem',
-        'c.fname as cfn',
-        'c.lname as cln',
-        'c.email as cem',
-        'p.headshot_url as avatar'
+        't.fname as fname',
+        't.lname as lname',
+        't.email as teacheremail',
+        'c.fname as coachfname',
+        'c.lname as coachlname',
+        'c.email as coachemail',
+        'p.avatar_url as avatar'
         )
         ->leftJoin('profiles as p', 'p.teacher_id', 't.id')
         ->leftJoin('schools as s', 's.id', 'p.school_id')

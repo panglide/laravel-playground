@@ -14,6 +14,7 @@ onMounted(() => {
     })
     .then((res) => {
         teacher.value = res.data
+        console.log(teacher.value);
     })
 })
 
@@ -24,7 +25,7 @@ onMounted(() => {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ teacher.tfn }} {{ teacher.tln }}
+                {{ teacher.fname }} {{ teacher.lname }}
             </h2>
         </template>
         <div class="py-12">
@@ -34,7 +35,7 @@ onMounted(() => {
                         <div class="h-64 grid grid-rows-3 grid-flow-col gap-4">
                             <div>{{ teacher.district }}</div>
                             <div>{{ teacher.school }}</div>
-                            <div>{{ teacher.cfn}} {{ teacher.cln }}</div>
+                            <div>{{ teacher.coachfname }} {{ teacher.coachlname }}</div>
                             <div>{{ teacher.grade }}</div>
                             <div>{{ teacher.subject }}</div>
                         </div>

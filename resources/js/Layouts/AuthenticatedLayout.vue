@@ -21,7 +21,7 @@ const showingNavigationDropdown = ref(false);
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
-                                    <p class="block h-9 w-auto">TeachBoost Coach</p>
+                                    <p class="block h-9 w-auto">Laravel Playground</p>
                                 </Link>
                             </div>
 
