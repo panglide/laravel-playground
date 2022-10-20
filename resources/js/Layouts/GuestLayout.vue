@@ -7,7 +7,7 @@ import { Link } from '@inertiajs/inertia-vue3';
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
             <Link href="/">
-                <p class="text-gray-500">TeachBoost Coach</p>
+                <p class="text-gray-500">Laravel Playground</p>
             </Link>
         </div>
 

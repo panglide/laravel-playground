@@ -25,8 +25,8 @@ defineProps({
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="">
-                <h1 class="text-center text-8xl text-gray-900 dark:text-gray-700">TeachBoost Coach</h1>
-                <h2 class="text-center text-2xl text-gray-700 dark:text-gray-700">Trial Run</h2>
+                <h1 class="text-center text-8xl text-gray-900 dark:text-gray-700">Larvel Playground</h1>
+                <h2 class="text-center text-2xl text-gray-700 dark:text-gray-700">A place to have fun</h2>
             </div>
         </div>
     </div>
